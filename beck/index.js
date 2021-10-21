@@ -31,14 +31,27 @@ app.get("/", (req, res) => {
   res.send("i am back with more knowledge, wow it's working ");
 });
 app.get("/users", (req, res) => {
+  console.log(req.query.search); // ki search dilam
+  const search = req.query.search;
+  if (search) {
+    const searchResult = users.filter((user) =>
+      user.name.toLowerCase().includes(search)
+    );
+    res.send(searchResult); //?search=sh emne search korte hoibo    
+  } else {
+    res.send(users);
+  }
   res.send(users);
 });
-app.get("/users/:id", (req, res) => { //Dynamic route
-    const searchId = req.params.id
-    const user = users[searchId]// array theke nitaci 1 ta user information re 
-    console.log(req.params.id);// ja patahaise tare khujtase 
-    res.send(user)
+app.get("/users/:id", (req, res) => {
+  //Dynamic route
+  const searchId = req.params.id;
+  const user = users[searchId]; // array theke nitaci 1 ta user information re
+  console.log(req.params.id); // ja patahaise tare khujtase
+  res.send(user);
 });
+
+//Server
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`server is runnig at port ${3001}`);
