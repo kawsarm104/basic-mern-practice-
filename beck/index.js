@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+app.use(cors())
 
 const users = [
   { id: 0, name: "Shabana", email: "Shabana@gmail.com", phone: "01788888888" },
@@ -37,7 +38,7 @@ app.get("/users", (req, res) => {
     const searchResult = users.filter((user) =>
       user.name.toLowerCase().includes(search)
     );
-    res.send(searchResult); //?search=sh emne search korte hoibo    
+    res.send(searchResult); //?search=sh emne search korte hoibo
   } else {
     res.send(users);
   }
