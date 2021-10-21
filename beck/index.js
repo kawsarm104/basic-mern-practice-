@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-app.use(cors())
+app.use(cors());
+
+app.use(express.json()); //for receiving data from client side
 
 const users = [
   { id: 0, name: "Shabana", email: "Shabana@gmail.com", phone: "01788888888" },
@@ -50,6 +52,13 @@ app.get("/users/:id", (req, res) => {
   const user = users[searchId]; // array theke nitaci 1 ta user information re
   console.log(req.params.id); // ja patahaise tare khujtase
   res.send(user);
+});
+app.post("/users", (req, res) => {
+  const newUser = req.body;
+    newUser.id = users.length;
+    users.push(newUser)
+  console.log("post hitted ", req.body);
+  res.json(newUser);
 });
 
 //Server
